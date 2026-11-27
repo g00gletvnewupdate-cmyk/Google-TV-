@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#05080c">
+<title>Créer un compte — GOOGLE TV</title>
+<style>
+:root{--blue:#087de0;--red:#f0273e;--orange:#ff8517;--green:#079b55;--gold:#e2ad27;--ink:#090909;--muted:#696969}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;font-family:Arial,Helvetica,sans-serif;color:#171717;background:
+radial-gradient(ellipse at 18% 12%,rgba(0,105,193,.28),transparent 34%),
+radial-gradient(ellipse at 86% 35%,rgba(194,20,36,.23),transparent 36%),
+radial-gradient(ellipse at 48% 95%,rgba(0,124,65,.20),transparent 40%),#020408}
+.page{width:min(100%,560px);margin:auto;padding:12px 12px 24px}
+.brand{text-align:center;color:white;padding:6px 0 18px}
+.tv-icon{width:104px;height:70px;margin:0 auto 10px;border:4px solid transparent;border-radius:23px;
+background:linear-gradient(#050505,#050505) padding-box,linear-gradient(135deg,#f32944,#f6b52b,#00a45b,#087de0,#9d4fc2) border-box;
+display:grid;place-items:center;position:relative;box-shadow:0 0 42px #0067ad44}
+.play{width:43px;height:43px;border-radius:50%;background:linear-gradient(135deg,#ff8517,#f12c39);display:grid;place-items:center;font-size:21px;color:white;padding-left:3px}
+.tv-icon:after{content:"";position:absolute;bottom:-14px;width:44px;height:6px;border-radius:10px;background:linear-gradient(90deg,#0b9b5a,#e7bd26,#ef3343)}
+.wordmark{font-size:clamp(23px,5vw,31px);font-weight:900;letter-spacing:-1px;margin:19px 0 9px}
+.wordmark .g1{color:#1685e6} .wordmark .o1{color:#ef303c} .wordmark .o2{color:#f3bd20} .wordmark .g2{color:#1685e6} .wordmark .l{color:#069d57} .wordmark .e{color:#ef303c}
+.wordmark .tv{display:inline-block;background:linear-gradient(120deg,#ff8716,#ed303b);color:white;border-radius:18px;padding:2px 12px 4px;margin-left:3px}
+.badges{display:grid;grid-template-columns:repeat(3,max-content);justify-content:center;align-items:center;gap:5px 6px}
+.badge{display:inline-flex;align-items:center;justify-content:center;gap:5px;border-radius:24px;padding:5px 8px;font-size:12px;font-weight:700;white-space:nowrap}.badge svg{width:14px;height:14px;display:block;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.earnings{grid-column:2;grid-row:2}
+.views{color:#1688ec;background:#087de02b} .likes{color:#f04455;background:#e6293b29} .favorites{color:#e6b72d;background:#b87c122c} .earnings{color:#0db16b;background:#079b552b}
+.card{background:#e9e9e9;border-radius:25px;padding:24px 20px 22px;box-shadow:0 22px 80px #0008}
+h1{margin:0;text-align:center;font-size:clamp(23px,4.5vw,30px);font-weight:850}
+h1 span{color:#087de0}
+.subtitle{text-align:center;color:#666;font-size:clamp(15px,3.2vw,19px);margin:10px 0 24px}
+.field{margin:0 0 18px}
+label.title{display:block;font-size:17px;font-weight:750;margin:0 0 9px}
+.input-wrap{display:flex;align-items:center;background:#000;color:white;border-radius:24px;min-height:58px;padding:0 15px;gap:11px}
+.icon{width:24px;height:24px;min-width:24px;display:inline-flex;align-items:center;justify-content:center;flex:none}.icon svg{width:23px;height:23px;display:block;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.blue{color:#087de0} .red{color:#f02b45} .gold{color:#e0b229} .green{color:#079b55} .orange{color:#ff8517}
+input,select{font:inherit}
+.input-wrap input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:#fff;font-size:18px}
+.input-wrap input::placeholder{color:#777;opacity:1}
+.password-wrap button{width:28px;height:28px;display:grid;place-items:center;border:0;background:none;color:#aaa;cursor:pointer;padding:0}.password-wrap button svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.hint{font-size:14px;line-height:1.4;color:#686868;margin:12px 0 0}
+
+.currency-picker-trigger{width:100%;min-height:58px;display:flex;align-items:center;gap:11px;padding:0 15px;background:#000;color:#f1ece8;border:0;border-radius:30px;text-align:left;font:inherit;font-size:17px;cursor:pointer}
+.currency-picker-trigger #currencyPickerValue{flex:1;min-width:0}
+.currency-native{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
+.country-picker-trigger{width:100%;min-height:58px;display:flex;align-items:center;gap:11px;padding:0 15px;background:#000;color:#bdb7b2;border:3px solid #f02d45;border-radius:30px;text-align:left;font:inherit;font-size:17px;cursor:pointer}
+.country-picker-trigger #countryPickerValue{flex:1;min-width:0}
+.country-chevron{font-size:23px;color:#d5ccc5;line-height:1}
+.country-overlay{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:12px 16px 28px;background:rgba(0,0,0,.48)}
+.country-overlay.open{display:flex}
+.country-panel{width:min(100%,520px);max-height:88vh;display:flex;flex-direction:column;overflow:hidden;border-radius:28px;background:#30251f;color:#f1ece8;box-shadow:0 18px 50px #0009}
+.country-panel-heading{flex:none;padding:20px 22px 17px;color:#a9a09b;font-size:17px;font-weight:600;border-bottom:1px solid #ffffff12}
+.country-options{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#75665d transparent}
+.country-option{width:100%;min-height:61px;padding:10px 22px;display:flex;align-items:center;gap:13px;border:0;border-bottom:1px solid #e6dcd421;background:transparent;color:#f1ece8;font:inherit;font-size:18px;text-align:left;cursor:pointer}
+.country-option:active,.country-option:hover{background:#ffffff0d}
+.country-flag{width:27px;flex:0 0 27px;font-size:23px;line-height:1}
+.country-option-name{flex:1}
+.country-radio{width:21px;height:21px;flex:0 0 21px;border:2px solid #d8ccc4;border-radius:50%;position:relative}
+.country-option[aria-checked="true"] .country-radio{border-color:#ff6a18}
+.country-option[aria-checked="true"] .country-radio:after{content:"";position:absolute;inset:4px;border-radius:50%;background:#ff6a18}
+@media(max-width:520px){.currency-picker-trigger{min-height:54px;font-size:15px;padding:0 13px}.country-picker-trigger{min-height:54px;font-size:16px;padding:0 13px}.country-option{min-height:61px;font-size:18px}.country-panel-heading{font-size:17px}}
+
+.country-line{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:14px}
+.country-line select{width:100%;height:58px;background:#000;color:#fff;border:0;border-radius:30px;padding:0 14px;font-size:14px;outline:0}
+.country-line .input-wrap{min-width:0}
+.currency select{width:100%;height:100%;min-height:58px;background:#000;color:white;border:0;outline:0;font-size:17px}
+.referral{font-size:19px;letter-spacing:1px}
+.applied{color:#079b55;font-size:16px;font-weight:700;line-height:1.4;margin:12px 0 0}
+.bonus{background:#e9dbb8;border-radius:23px;padding:13px 16px;margin-top:10px;font-size:16px;line-height:1.4;font-weight:700}
+.terms{display:flex;align-items:flex-start;gap:11px;margin:20px 0 22px;font-size:16px;line-height:1.45}
+.terms input{width:22px;height:22px;flex:none;margin:3px 0 0;accent-color:#f02b45}
+.terms a{color:#d93646;font-weight:700;text-decoration:none}
+.submit{width:100%;border:0;border-radius:34px;padding:17px 12px;background:linear-gradient(100deg,#ff8517,#f1263e);color:white;font-size:22px;font-weight:850;cursor:pointer;box-shadow:0 12px 25px #f0443430}
+.submit:active{transform:scale(.99)}
+.login{text-align:center;color:#ddd;font-size:16px;margin:20px 0 0}
+.login a{color:#1685e6;font-weight:700;text-decoration:none}
+.notice{display:none;margin:18px 0 0;padding:14px;border-radius:14px;background:#fff3d9;color:#654b11;font-size:16px;line-height:1.4}
+.legal-screen{display:none;width:min(100%,760px);min-height:100vh;margin:0 auto;padding:22px 14px 40px;color:#171717}
+.legal-screen.active{display:block}
+.legal-card{background:#f4f4f4;border-radius:22px;padding:25px 22px;box-shadow:0 18px 55px #0007}
+.legal-top{position:relative;display:flex;align-items:flex-start;justify-content:center;min-height:78px;margin-bottom:18px;color:#fff;padding-top:17px}
+.legal-brand{font-weight:900;letter-spacing:-.7px;font-size:25px;white-space:nowrap;text-align:center}
+.legal-back{position:absolute;top:0;left:0;z-index:1}.legal-brand .g1{color:#1685e6}.legal-brand .o1{color:#ef303c}.legal-brand .o2{color:#f3bd20}.legal-brand .g2{color:#1685e6}.legal-brand .l{color:#069d57}.legal-brand .e{color:#ef303c}.legal-brand .tv{display:inline-block;background:linear-gradient(120deg,#ff8716,#ed303b);color:#fff;border-radius:14px;padding:2px 9px 3px;margin-left:3px;font-size:.82em;letter-spacing:0}
+.legal-back{width:38px;height:38px;display:grid;place-items:center;border:0;border-radius:50%;padding:0;background:#087de0;color:white;cursor:pointer}.legal-back svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+.legal-card h1{text-align:left;color:#087de0;font-size:26px;line-height:1.2;margin:0 0 8px}
+.legal-date{color:#666;font-size:13px;margin:0 0 22px}
+.legal-card h2{font-size:18px;margin:23px 0 8px;color:#222}
+.legal-card p,.legal-card li{font-size:15px;line-height:1.65;color:#333}
+.legal-card ul{padding-left:22px}
+
+@media(max-width:520px){.legal-screen{padding:12px 10px 28px}.legal-top{min-height:76px;padding-top:29px;margin-bottom:14px}.legal-brand{font-size:25px}.legal-back{top:0;left:0;width:34px;height:34px}.legal-card{padding:21px 17px;border-radius:19px}.legal-card h1{font-size:23px}.legal-card h2{font-size:17px}.legal-card p,.legal-card li{font-size:14px}}
+@media(max-width:520px){
+.page{padding:9px 10px 20px}.brand{padding:5px 0 15px}
+.tv-icon{width:92px;height:62px;border-radius:19px}.play{width:38px;height:38px;font-size:18px}
+.wordmark{font-size:clamp(22px,6vw,28px);margin:17px 0 8px}
+.badges{gap:5px 5px}.badge{font-size:11px;padding:5px 7px;gap:4px}.badge svg{width:13px;height:13px}
+.card{padding:21px 16px 19px;border-radius:23px}
+label.title{font-size:16px}.input-wrap{min-height:54px;padding:0 13px;gap:9px}
+.input-wrap input{font-size:16px}.country-line{grid-template-columns:minmax(0,1fr) minmax(0,1.45fr);gap:7px}
+.country-line select{height:54px;padding:0 7px;font-size:12px}.country-line .input-wrap{min-height:54px}
+.currency select{min-height:54px;font-size:15px}.hint{font-size:13px}
+.applied{font-size:15px}.bonus{font-size:15px;padding:12px 14px}
+.terms{font-size:14px;gap:9px}.submit{font-size:19px;padding:15px 10px}
+}
+
+/* Page de connexion — reproduction fidèle de la capture fournie */
+.login-screen{min-height:calc(100vh - 24px);width:100%;max-width:690px;margin:0 auto;padding:64px 30px 50px;background:#000;color:#eee;font-family:Arial,Helvetica,sans-serif}
+.login-screen[hidden]{display:none}
+.login-heading{text-align:center;color:#bdbdbd;font-size:27px;font-weight:700;letter-spacing:9px;margin:0 0 33px;padding-left:9px}
+.login-card{background:#e8e8e8;color:#111;border-radius:44px;padding:42px 39px 37px;box-shadow:0 12px 30px #0005}
+.login-card h2{text-align:center;font-size:38px;line-height:1.15;margin:0 0 39px;font-weight:800}
+.login-field{margin:0 0 34px}
+.login-field label{display:block;font-size:27px;font-weight:700;margin:0 0 14px}
+.login-input{height:100px;border-radius:38px;background:#000;display:flex;align-items:center;padding:0 27px;gap:25px;color:#aaa}
+.login-input svg{width:38px;height:38px;flex:none;stroke:#aaa;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.login-input input{min-width:0;width:100%;border:0;outline:0;background:transparent;color:#fff;font-size:29px;font-family:inherit}
+.login-input input::placeholder{color:#777;opacity:1}
+.login-submit{width:100%;height:108px;border:0;border-radius:60px;background:#ff7410;color:#fff;font-size:34px;font-weight:800;margin-top:0;box-shadow:0 14px 28px #ff741044;cursor:pointer}
+.signup-back{text-align:center;color:#aaa;font-size:27px;margin:48px 0 0;white-space:normal}
+.signup-back a{color:#e6e6e6;font-weight:700;text-decoration:none}
+.login-notice{display:none;color:#555;font-size:15px;line-height:1.4;margin:15px 5px 0}
+@media(max-width:520px){
+/* Dimensions réduites pour correspondre à la capture mobile de référence */
+.login-screen{min-height:calc(100vh - 24px);padding:40px 17px 28px}
+.login-heading{font-size:16px;letter-spacing:5px;margin-bottom:19px;padding-left:5px}
+.login-card{border-radius:25px;padding:22px 22px 21px}
+.login-card h2{font-size:22px;line-height:1.2;margin-bottom:25px}
+.login-field{margin-bottom:22px}
+.login-field label{font-size:16px;margin-bottom:8px}
+.login-input{height:57px;border-radius:23px;padding:0 16px;gap:14px}
+.login-input svg{width:21px;height:21px}
+.login-input input{font-size:18px}
+.login-submit{height:62px;font-size:20px;border-radius:36px}
+.signup-back{font-size:16px;margin-top:29px}
+}
+@media(max-width:390px){.login-screen{padding-left:17px;padding-right:17px}.login-card{padding-left:22px;padding-right:22px}.login-input{height:57px;padding:0 15px;gap:12px}.login-input input{font-size:17px}.login-submit{height:62px;font-size:19px}.login-card h2{font-size:22px}.login-field label{font-size:16px}.signup-back{font-size:15px}}
+
+
+/* Finition professionnelle et contrôles de formulaire */
+:root{--surface:#e9e9e9;--line:#d2d2d2;--focus:#1685e6}
+button,input,select{ -webkit-tap-highlight-color:transparent }
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #1685e688;outline-offset:3px}
+.input-wrap{transition:border-color .18s,box-shadow .18s;border:1px solid transparent}
+.input-wrap:focus-within{border-color:#1685e6;box-shadow:0 0 0 3px #1685e622}
+.currency-picker-trigger,.country-picker-trigger{transition:filter .18s,transform .18s}
+.currency-picker-trigger:hover,.country-picker-trigger:hover{filter:brightness(1.12)}
+.country-option{transition:background .15s}
+.country-option[aria-checked="true"]{background:#ffffff0c}
+.card,.login-card{border:1px solid #ffffff20}
+.terms{align-items:flex-start}
+.terms input{appearance:none;-webkit-appearance:none;width:18px;height:18px;min-width:18px;min-height:18px;border:1.8px solid #777;border-radius:4px;background:#fff;margin:3px 0 0;display:grid;place-content:center;cursor:pointer}
+.terms input:checked{background:#f02b45;border-color:#f02b45}
+.terms input:checked::before{content:"";width:8px;height:4px;border-left:2px solid white;border-bottom:2px solid white;transform:rotate(-45deg);margin-top:-2px}
+.terms input:focus-visible{outline:3px solid #f02b4544;outline-offset:2px}
+.submit,.login-submit{transition:filter .18s,transform .18s,box-shadow .18s}
+.submit:hover,.login-submit:hover{filter:brightness(1.05);box-shadow:0 12px 28px #f0443440}
+.login-screen{max-width:560px;padding:44px 22px 34px}
+.login-heading{font-size:18px;letter-spacing:6px;margin-bottom:22px}
+.login-card{border-radius:28px;padding:25px 24px 23px}
+.login-card h2{font-size:25px;margin-bottom:27px}
+.login-field{margin-bottom:23px}
+.login-field label{font-size:17px;margin-bottom:9px}
+.login-input{height:62px;border-radius:25px;padding:0 17px;gap:14px}
+.login-input svg{width:22px;height:22px}
+.login-input input{font-size:18px}
+.login-submit{height:66px;font-size:21px;border-radius:36px}
+.signup-back{font-size:16px;margin-top:28px}
+@media(max-width:520px){
+ .terms input{width:18px;height:18px;min-width:18px;min-height:18px}
+ .login-screen{padding:40px 17px 28px}
+ .login-heading{font-size:16px;letter-spacing:5px;margin-bottom:19px}
+ .login-card{border-radius:25px;padding:22px 22px 21px}
+ .login-card h2{font-size:22px;margin-bottom:25px}
+ .login-field{margin-bottom:22px}
+ .login-field label{font-size:16px;margin-bottom:8px}
+ .login-input{height:57px;border-radius:23px;padding:0 16px;gap:14px}
+ .login-input svg{width:21px;height:21px}
+ .login-input input{font-size:18px}
+ .login-submit{height:62px;font-size:20px;border-radius:36px}
+ .signup-back{font-size:16px;margin-top:29px}
+}
+
+
+/* Agrandissement léger des éléments de marque et des icônes en haut de la page principale */
+.brand .tv-icon{width:114px;height:77px}
+.brand .play{width:47px;height:47px;font-size:23px}
+.brand .wordmark{font-size:clamp(25px,5.3vw,33px)}
+.brand .badge{font-size:13px;padding:6px 10px;gap:6px}
+.brand .badge svg{width:17px;height:17px}
+@media(max-width:520px){
+  .brand .tv-icon{width:100px;height:68px}
+  .brand .play{width:42px;height:42px;font-size:20px}
+  .brand .wordmark{font-size:clamp(23px,6.3vw,30px)}
+  .brand .badge{font-size:12px;padding:6px 8px;gap:5px}
+  .brand .badge svg{width:15px;height:15px}
+}
+
+
+/* Espace d’attente et de confirmation — interface complète responsive */
+.pending-screen{min-height:100vh;width:100%;margin:0 auto;background:#f6f7fb;color:#151923;font-family:Arial,Helvetica,sans-serif;padding:0 0 48px}
+.pending-screen[hidden]{display:none}
+.pending-header{height:76px;padding:0 clamp(18px,4vw,54px);display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid #e9ebf1;box-shadow:0 2px 12px rgba(18,30,55,.04)}
+.pending-logo{display:flex;align-items:center;gap:11px;font-size:21px;font-weight:900;letter-spacing:-.6px;color:#111827}
+.pending-logo-mark{width:38px;height:38px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(135deg,#ff941b,#ef3345);color:#fff;font-size:19px;box-shadow:0 5px 14px rgba(239,91,38,.22)}
+.pending-header-note{font-size:13px;color:#667085;font-weight:600}
+.pending-main{width:min(100% - 32px,760px);margin:42px auto 0}
+.pending-eyebrow{display:flex;align-items:center;justify-content:center;gap:8px;color:#687386;font-size:12px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;margin:0 0 17px}
+.pending-eyebrow:before,.pending-eyebrow:after{content:"";height:1px;width:34px;background:#d9deea}
+.pending-card{background:#fff;border:1px solid #e9edf4;border-radius:25px;overflow:hidden;box-shadow:0 18px 55px rgba(22,34,57,.08)}
+.pending-card-top{padding:38px clamp(20px,5vw,54px) 30px;text-align:center;background:linear-gradient(180deg,#fff 0%,#fbfcff 100%)}
+.pending-icon{width:82px;height:82px;border-radius:25px;margin:0 auto 22px;background:#fff4df;color:#ed8617;display:grid;place-items:center;font-size:44px;font-weight:500;box-shadow:inset 0 0 0 1px #f8e5bf}
+.pending-screen.is-approved .pending-icon{background:#e8f8ef;color:#159653;box-shadow:inset 0 0 0 1px #c9efd9}
+.pending-content h1{font-size:clamp(25px,5vw,34px);line-height:1.2;margin:0 0 13px;font-weight:850;letter-spacing:-.8px;color:#151923}
+.pending-description{font-size:clamp(15px,2.5vw,17px);line-height:1.65;color:#697386;margin:0 auto;max-width:560px}
+.pending-status{display:inline-flex;align-items:center;gap:8px;margin-top:22px;padding:9px 14px;border-radius:30px;background:#fff5e5;color:#a85b08;font-size:13px;font-weight:800}
+.pending-status-dot{width:8px;height:8px;border-radius:50%;background:#f29a25;box-shadow:0 0 0 4px rgba(242,154,37,.14)}
+.pending-screen.is-approved .pending-status{background:#eaf8ef;color:#137b45}
+.pending-screen.is-approved .pending-status-dot{background:#18a05a;box-shadow:0 0 0 4px rgba(24,160,90,.13)}
+.pending-divider{height:1px;background:#edf0f5}
+.pending-details{padding:26px clamp(20px,5vw,54px) 30px}
+.pending-details-heading{font-size:14px;font-weight:800;color:#313a4b;margin:0 0 17px}
+.pending-info{background:#f7f8fb;border:1px solid #edf0f5;border-radius:17px;padding:8px 19px;text-align:left;margin:0;overflow-wrap:anywhere}
+.pending-info p{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;font-size:14px;line-height:1.5;margin:0;padding:13px 0;border-bottom:1px solid #e9edf3}
+.pending-info p:last-of-type{border-bottom:0}
+.pending-info strong{font-weight:700;color:#687386;flex:0 0 auto}
+.pending-info span{font-weight:700;color:#1d2636;text-align:right}
+.pending-info .pending-price{margin:0;padding:16px 0 11px;align-items:center}
+.pending-info .pending-price strong{color:#263247}
+.pending-info .pending-price span{font-size:clamp(20px,4vw,25px);font-weight:900;color:#087de0}
+.pending-info small{display:block;color:#8791a2;font-size:12px;line-height:1.5;padding:0 0 13px}
+.pending-next{display:flex;gap:13px;align-items:flex-start;margin:19px 0 0;padding:15px 16px;background:#fff9ed;border:1px solid #f8e9c9;border-radius:14px;color:#77511d}
+.pending-next-icon{font-size:19px;line-height:1.2}
+.pending-next p{margin:0;font-size:13px;line-height:1.55}
+.pending-next strong{display:block;margin-bottom:3px;color:#70470e}
+.pending-actions{padding:0 clamp(20px,5vw,54px) 30px;text-align:center}
+.pending-action{border:0;border-radius:13px;background:linear-gradient(100deg,#087de0,#1768cf);color:#fff;font-size:16px;font-weight:800;padding:16px 25px;min-width:min(100%,320px);cursor:pointer;box-shadow:0 8px 18px rgba(8,125,224,.18);transition:transform .15s,box-shadow .15s}
+.pending-action:hover{transform:translateY(-1px);box-shadow:0 11px 22px rgba(8,125,224,.24)}
+.pending-action:disabled{background:#eaf8ef;color:#137b45;box-shadow:none;cursor:default;transform:none}
+.pending-feedback{min-height:20px;color:#687386;font-size:13px;line-height:1.5;margin:13px 0 0}
+.pending-footer{text-align:center;color:#98a1b1;font-size:12px;margin:22px 12px 0}
+@media(max-width:520px){.pending-header{height:66px}.pending-logo{font-size:18px}.pending-logo-mark{width:34px;height:34px;border-radius:11px}.pending-header-note{font-size:11px}.pending-main{width:calc(100% - 22px);margin-top:28px}.pending-card{border-radius:20px}.pending-card-top{padding:30px 21px 25px}.pending-icon{width:72px;height:72px;border-radius:22px;font-size:38px;margin-bottom:19px}.pending-details{padding:22px 18px 24px}.pending-info{padding:6px 14px}.pending-info p{font-size:13px;gap:10px}.pending-info .pending-price span{font-size:21px}.pending-actions{padding:0 18px 25px}.pending-action{width:100%;font-size:15px}.pending-description{font-size:15px}}
+
+
+</style>
+</head>
+<body>
+<main class="page" id="signupView">
+  <header class="brand">
+    <div class="tv-icon"><div class="play">▶</div></div>
+    <div class="wordmark"><span class="g1">G</span><span class="o1">O</span><span class="o2">O</span><span class="g2">G</span><span class="l">L</span><span class="e">E</span><span class="tv">TV</span></div>
+    <div class="badges">
+      <span class="badge views"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>Vues</span>
+      <span class="badge likes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.7c0 5-8.8 11-8.8 11s-8.8-6-8.8-11A4.7 4.7 0 0 1 12 6.1a4.7 4.7 0 0 1 8.8 2.6Z"/></svg>J’aime</span>
+      <span class="badge favorites"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z"/></svg>Favoris</span>
+      <span class="badge earnings"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 9h18M16 14h2"/><path d="M6 6V4h12v2"/></svg>Gains</span>
+    </div>
+  </header>
+
+  <section class="card">
+    <h1>Créer un <span>compte</span></h1>
+    <p class="subtitle">Regardez des vidéos et gagnez des FCFA.</p>
+
+    <form id="signupForm">
+      <div class="field">
+        <label class="title" for="fullname">Nom complet</label>
+        <div class="input-wrap"><span class="icon blue"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 21v-1.5a7.5 7.5 0 0 1 15 0V21"/></svg></span><input id="fullname" name="fullname" type="text" placeholder="Jean Dupont" autocomplete="name" required></div>
+      </div>
+      <div class="field">
+        <label class="title" for="email">Adresse Gmail</label>
+        <div class="input-wrap"><span class="icon red"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3.5 6 8.5 7 8.5-7"/></svg></span><input id="email" name="email" type="email" placeholder="votrenom@gmail.com" autocomplete="email" required></div>
+      </div>
+      <div class="field">
+        <label class="title" for="password">Mot de passe</label>
+        <div class="input-wrap password-wrap"><span class="icon gold"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="10" width="17" height="11" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg></span><input id="password" name="password" type="password" placeholder="••••••••" minlength="6" autocomplete="new-password" required><button type="button" id="togglePassword" aria-label="Afficher le mot de passe"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+        <p class="hint">Au moins 6 caractères. Mélangez lettres, chiffres et symboles.</p>
+      </div>
+      <div class="field">
+        <label class="title" for="country">Pays</label>
+        <button class="country-picker-trigger" id="countryPickerOpen" type="button" aria-haspopup="dialog" aria-expanded="false">
+          <span class="icon green" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.2"/><path d="M2.8 12h18.4M12 2.8c2.5 2.5 3.7 5.6 3.7 9.2s-1.2 6.7-3.7 9.2c-2.5-2.5-3.7-5.6-3.7-9.2S9.5 5.3 12 2.8Z"/></svg></span>
+          <span id="countryPickerValue">Sélectionnez votre pays</span>
+          <span class="country-chevron" aria-hidden="true">⌄</span>
+        </button>
+        <input type="hidden" id="countryDisplay" name="country" required>
+      </div>
+      <div class="field">
+        <label class="title" for="phone">Numéro WhatsApp</label>
+        <div class="country-line">
+          <select id="dialCode" name="dialCode" aria-label="Indicatif téléphonique"><option value="+27" data-flag="🇿🇦" >🇿🇦 +27 Afrique du Sud</option>
+<option value="+213" data-flag="🇩🇿" >🇩🇿 +213 Algérie</option>
+<option value="+244" data-flag="🇦🇴" >🇦🇴 +244 Angola</option>
+<option value="+229" data-flag="🇧🇯">🇧🇯 +229 Bénin</option>
+<option value="+267" data-flag="🇧🇼" >🇧🇼 +267 Botswana</option>
+<option value="+226" data-flag="🇧🇫" >🇧🇫 +226 Burkina Faso</option>
+<option value="+257" data-flag="🇧🇮" >🇧🇮 +257 Burundi</option>
+<option value="+237" data-flag="🇨🇲" >🇨🇲 +237 Cameroun</option>
+<option value="+238" data-flag="🇨🇻" >🇨🇻 +238 Cap-Vert</option>
+<option value="+236" data-flag="🇨🇫" >🇨🇫 +236 Centrafrique</option>
+<option value="+269" data-flag="🇰🇲" >🇰🇲 +269 Comores</option>
+<option value="+242" data-flag="🇨🇬" >🇨🇬 +242 Congo</option>
+<option value="+225" data-flag="🇨🇮" selected>🇨🇮 +225 Côte d’Ivoire</option>
+<option value="+253" data-flag="🇩🇯" >🇩🇯 +253 Djibouti</option>
+<option value="+20" data-flag="🇪🇬" >🇪🇬 +20 Égypte</option>
+<option value="+291" data-flag="🇪🇷" >🇪🇷 +291 Érythrée</option>
+<option value="+268" data-flag="🇸🇿" >🇸🇿 +268 Eswatini</option>
+<option value="+251" data-flag="🇪🇹" >🇪🇹 +251 Éthiopie</option>
+<option value="+241" data-flag="🇬🇦" >🇬🇦 +241 Gabon</option>
+<option value="+220" data-flag="🇬🇲" >🇬🇲 +220 Gambie</option>
+<option value="+233" data-flag="🇬🇭" >🇬🇭 +233 Ghana</option>
+<option value="+224" data-flag="🇬🇳" >🇬🇳 +224 Guinée</option>
+<option value="+245" data-flag="🇬🇼" >🇬🇼 +245 Guinée-Bissau</option>
+<option value="+240" data-flag="🇬🇶" >🇬🇶 +240 Guinée équatoriale</option>
+<option value="+254" data-flag="🇰🇪" >🇰🇪 +254 Kenya</option>
+<option value="+266" data-flag="🇱🇸" >🇱🇸 +266 Lesotho</option>
+<option value="+231" data-flag="🇱🇷" >🇱🇷 +231 Liberia</option>
+<option value="+218" data-flag="🇱🇾" >🇱🇾 +218 Libye</option>
+<option value="+261" data-flag="🇲🇬" >🇲🇬 +261 Madagascar</option>
+<option value="+265" data-flag="🇲🇼" >🇲🇼 +265 Malawi</option>
+<option value="+223" data-flag="🇲🇱" >🇲🇱 +223 Mali</option>
+<option value="+212" data-flag="🇲🇦" >🇲🇦 +212 Maroc</option>
+<option value="+230" data-flag="🇲🇺" >🇲🇺 +230 Maurice</option>
+<option value="+222" data-flag="🇲🇷" >🇲🇷 +222 Mauritanie</option>
+<option value="+258" data-flag="🇲🇿" >🇲🇿 +258 Mozambique</option>
+<option value="+264" data-flag="🇳🇦" >🇳🇦 +264 Namibie</option>
+<option value="+227" data-flag="🇳🇪" >🇳🇪 +227 Niger</option>
+<option value="+234" data-flag="🇳🇬" >🇳🇬 +234 Nigeria</option>
+<option value="+256" data-flag="🇺🇬" >🇺🇬 +256 Ouganda</option>
+<option value="+243" data-flag="🇨🇩" >🇨🇩 +243 RD Congo</option>
+<option value="+250" data-flag="🇷🇼" >🇷🇼 +250 Rwanda</option>
+<option value="+239" data-flag="🇸🇹" >🇸🇹 +239 Sao Tomé-et-Principe</option>
+<option value="+221" data-flag="🇸🇳" >🇸🇳 +221 Sénégal</option>
+<option value="+248" data-flag="🇸🇨" >🇸🇨 +248 Seychelles</option>
+<option value="+232" data-flag="🇸🇱" >🇸🇱 +232 Sierra Leone</option>
+<option value="+252" data-flag="🇸🇴" >🇸🇴 +252 Somalie</option>
+<option value="+249" data-flag="🇸🇩" >🇸🇩 +249 Soudan</option>
+<option value="+211" data-flag="🇸🇸" >🇸🇸 +211 Soudan du Sud</option>
+<option value="+255" data-flag="🇹🇿" >🇹🇿 +255 Tanzanie</option>
+<option value="+235" data-flag="🇹🇩" >🇹🇩 +235 Tchad</option>
+<option value="+228" data-flag="🇹🇬" >🇹🇬 +228 Togo</option>
+<option value="+216" data-flag="🇹🇳" >🇹🇳 +216 Tunisie</option>
+<option value="+260" data-flag="🇿🇲" >🇿🇲 +260 Zambie</option>
+<option value="+263" data-flag="🇿🇼" >🇿🇼 +263 Zimbabwe</option>
+<option value="+32" data-flag="🇧🇪" >🇧🇪 +32 Belgique</option>
+<option value="+1" data-flag="🇨🇦" >🇨🇦 +1 Canada</option>
+<option value="+33" data-flag="🇫🇷" >🇫🇷 +33 France</option>
+<option value="+41" data-flag="🇨🇭" >🇨🇭 +41 Suisse</option><option value="+1" data-flag="🇺🇸">🇺🇸 +1 États-Unis</option></select>
+          <div class="input-wrap"><span class="icon green"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 11.7a8.2 8.2 0 0 1-12.1 7.2L3 20l1.2-4.8a8.2 8.2 0 1 1 16-3.5Z"/><path d="M8.5 8.2c.4-.6.8-.5 1.1 0l.8 1.5c.2.4.1.7-.3 1l-.5.5c.6 1.2 1.5 2.1 2.7 2.7l.5-.6c.3-.3.6-.4 1-.2l1.4.7c.5.3.6.7.2 1.1-.6.8-1.5 1.1-2.5.8-2.7-.8-5.3-3.4-6.1-6.1-.3-.6.1-1.1.7-1.4Z"/></svg></span><input id="phone" name="phone" type="tel" placeholder="07 00 00 00 00" autocomplete="tel-national" required></div>
+        </div>
+        <p class="hint">Obligatoire pour finaliser votre inscription : votre administrateur vous contacte sur WhatsApp.</p>
+      </div>
+      <div class="field">
+        <label class="title" for="currency">Devise</label>
+        <button class="currency-picker-trigger" id="currencyPickerOpen" type="button" aria-haspopup="dialog" aria-expanded="false">
+          <span class="icon gold" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v5c0 1.7 2.7 3 6 3 1 0 1.9-.1 2.7-.4M3 12c0 1.7 2.7 3 6 3"/><circle cx="17" cy="16" r="4.5"/><path d="M17 13.5v5M18.5 14.5c-.4-.7-2.8-.8-3 .2-.2 1.3 3.2.7 3 2.1-.1 1-2.5 1.1-3.2.2"/></svg></span><span id="currencyPickerValue">Sélectionnez votre devise</span><span class="country-chevron" aria-hidden="true">⌄</span>
+        </button>
+        <select id="currency" name="currency" class="currency-native" aria-label="Devise">
+          <option value="" selected disabled>Sélectionnez votre devise</option><option value="XOF">Franc CFA (BCEAO) – FCFA</option>
+          <option value="XAF">Franc CFA (BEAC) – FCFA</option><option value="EUR">Euro – €</option><option value="USD">Dollar américain – $</option><option value="CAD">Dollar canadien – $ CA</option><option value="CHF">Franc suisse – CHF</option><option value="GBP">Livre sterling – £</option><option value="NGN">Naira nigérian – ₦</option><option value="GHS">Cedi ghanéen – GH₵</option><option value="MAD">Dirham marocain – MAD</option><option value="DZD">Dinar algérien – DZD</option><option value="TND">Dinar tunisien – TND</option><option value="LYD">Dinar libyen – LYD</option><option value="EGP">Livre égyptienne – EGP</option><option value="GNF">Franc guinéen – GNF</option><option value="CDF">Franc congolais – CDF</option><option value="RWF">Franc rwandais – RWF</option><option value="BIF">Franc burundais – BIF</option><option value="KMF">Franc comorien – KMF</option><option value="DJF">Franc djiboutien – DJF</option><option value="MGA">Ariary malgache – MGA</option><option value="MRU">Ouguiya mauritanien – MRU</option><option value="KES">Shilling kényan – KES</option><option value="UGX">Shilling ougandais – UGX</option><option value="TZS">Shilling tanzanien – TZS</option><option value="ETB">Birr éthiopien – ETB</option><option value="ERN">Nakfa érythréen – ERN</option><option value="AOA">Kwanza angolais – AOA</option><option value="CVE">Escudo cap-verdien – CVE</option><option value="STN">Dobra santoméen – STN</option><option value="GMD">Dalasi gambien – GMD</option><option value="LRD">Dollar libérien – LRD</option><option value="SLE">Leone sierra-léonais – SLE</option><option value="MUR">Roupie mauricienne – MUR</option><option value="SCR">Roupie seychelloise – SCR</option><option value="MZN">Metical mozambicain – MZN</option><option value="ZAR">Rand sud-africain – ZAR</option><option value="NAD">Dollar namibien – NAD</option><option value="BWP">Pula botswanais – BWP</option><option value="LSL">Loti lesothan – LSL</option><option value="SZL">Lilangeni swazi – SZL</option><option value="ZMW">Kwacha zambien – ZMW</option><option value="MWK">Kwacha malawite – MWK</option>
+        </select>
+        <p class="hint">Vos gains seront affichés dans cette devise (taux indicatif).</p>
+      </div>
+      <div class="field">
+        <label class="title" for="referral">Code de parrainage (optionnel)</label>
+        <div class="input-wrap"><span class="icon orange">♔</span><input class="referral" id="referral" name="referral" type="text" value="906794"></div>
+        <p class="applied">✓ &nbsp;Code de parrainage appliqué depuis votre lien.</p>
+        <div class="bonus"><span class="orange">♔</span> &nbsp;Vous recevrez un bonus après l’activation de votre compte !</div>
+      </div>
+      <label class="terms"><input type="checkbox" id="accept" required><span>J'accepte les <a href="#conditions" data-legal="conditions">conditions</a>, les <a href="#termes" data-legal="termes">termes d'utilisation</a> et la <a href="#confidentialite" data-legal="confidentialite">politique de confidentialité</a>.</span></label>
+      <button class="submit" type="submit">Créer mon compte</button>
+      <div class="notice" id="notice">La maquette du formulaire est prête. L’inscription réelle nécessite une connexion à un système de comptes sécurisé.</div>
+    </form>
+  </section>
+  <p class="login">Déjà un compte ? <a href="#" id="openLogin">Connectez-vous</a></p>
+</main>
+
+<section class="login-screen" id="loginView" hidden>
+  <div class="login-heading">GAGNER</div>
+  <div class="login-card">
+    <h2>Connexion</h2>
+    <form id="loginForm">
+      <div class="login-field">
+        <label for="loginEmail">Email</label>
+        <div class="login-input"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m3 6 9 7 9-7"/></svg><input id="loginEmail" type="email" placeholder="votre@email.com" autocomplete="email" required></div>
+      </div>
+      <div class="login-field">
+        <label for="loginPassword">Mot de passe</label>
+        <div class="login-input"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg><input id="loginPassword" type="password" placeholder="•••••••" autocomplete="current-password" required></div>
+      </div>
+      <button class="login-submit" type="submit">Se connecter</button>
+      <p class="login-notice" id="loginNotice">Connectez-vous avec les identifiants créés sur cet appareil.</p>
+    </form>
+  </div>
+  <p class="signup-back">Pas encore de compte ? <a href="#" id="backToSignup">Inscrivez-vous</a></p>
+</section>
+
+
+
+
+<section class="pending-screen" id="pendingView" hidden>
+  <header class="pending-header">
+    <div class="pending-logo"><span class="pending-logo-mark" aria-hidden="true">▶</span><strong>GOOGLE TV</strong></div>
+    <span class="pending-header-note">Espace membre sécurisé</span>
+  </header>
+  <main class="pending-main">
+    <p class="pending-eyebrow">Suivi de votre inscription</p>
+    <section class="pending-card" aria-live="polite">
+      <div class="pending-card-top pending-content">
+        <div class="pending-icon" id="pendingIcon" aria-hidden="true">◷</div>
+        <h1 id="pendingTitle">Compte en attente</h1>
+        <p class="pending-description" id="pendingDescription">Votre demande de création de compte a bien été enregistrée. Elle sera examinée par notre équipe.</p>
+        <div class="pending-status" id="pendingStatus"><span class="pending-status-dot"></span><span id="pendingStatusText">Validation en cours</span></div>
+      </div>
+      <div class="pending-divider"></div>
+      <div class="pending-details">
+        <h2 class="pending-details-heading">Récapitulatif de votre demande</h2>
+        <div class="pending-info">
+          <p><strong>Courriel</strong><span id="pendingEmail">—</span></p>
+          <p><strong>Pays</strong><span id="pendingCountry">—</span></p>
+          <p class="pending-price"><strong>Frais d’activation</strong><span id="pendingAmount">Calcul en cours…</span></p>
+          <small>Tarif de référence : 10 000 FCFA. Le montant affiché dans votre devise est calculé à titre indicatif selon le taux de change disponible.</small>
+        </div>
+        <div class="pending-next" id="pendingNextStep">
+          <span class="pending-next-icon" aria-hidden="true">ⓘ</span>
+          <p><strong>Prochaine étape</strong>Contactez votre représentant pour connaître les modalités de finalisation de votre inscription. Votre compte sera activé après validation par l’administration.</p>
+        </div>
+      </div>
+      <div class="pending-actions">
+        <button class="pending-action" id="checkStatusButton" type="button">Vérifier le statut de mon compte</button>
+        <p class="pending-feedback" id="pendingFeedback" aria-live="polite"></p>
+      </div>
+    </section>
+    <p class="pending-footer">GOOGLE TV · Espace membre</p>
+  </main>
+</section>
+
+
+<section id="adminView" hidden style="min-height:100vh;background:#f4f7fb;padding:24px;box-sizing:border-box;font-family:inherit;color:#152238">
+ <div style="max-width:1100px;margin:auto">
+  <header style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:24px">
+   <div><div style="font-size:12px;font-weight:800;letter-spacing:2px;color:#2673df">GOOGLE TV · ADMINISTRATION PRIVÉE</div><h1 style="margin:6px 0;font-size:28px">Gestion des inscriptions</h1><p style="margin:0;color:#64748b">Seul le compte administrateur autorisé peut consulter ces demandes.</p></div>
+   <button id="adminLogout" type="button" style="border:0;border-radius:10px;padding:12px 18px;background:#172b4d;color:white;font-weight:700">Se déconnecter</button>
+  </header>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+   <button class="admin-filter" data-filter="pending">En attente</button><button class="admin-filter" data-filter="approved">Acceptées</button><button class="admin-filter" data-filter="rejected">Refusées</button><button class="admin-filter" data-filter="all">Toutes</button>
+  </div>
+  <p id="adminFeedback" role="status" style="color:#475569"></p>
+  <div style="overflow:auto;background:white;border-radius:16px;box-shadow:0 8px 30px #10294d12">
+   <table style="width:100%;border-collapse:collapse;min-width:850px"><thead><tr style="background:#edf3fb;text-align:left"><th style="padding:14px">Nom / e-mail</th><th style="padding:14px">Pays</th><th style="padding:14px">WhatsApp</th><th style="padding:14px">Devise</th><th style="padding:14px">Code</th><th style="padding:14px">Statut</th><th style="padding:14px">Actions</th></tr></thead><tbody id="adminRows"><tr><td colspan="7" style="padding:20px">Chargement…</td></tr></tbody></table>
+  </div>
+ </div>
+</section>
+<style>
+.admin-filter{border:1px solid #d5dfec;background:white;border-radius:999px;padding:9px 16px;font-weight:700;color:#334155;cursor:pointer}.admin-filter.active{background:#1769d2;color:white;border-color:#1769d2}.admin-action{border:0;border-radius:8px;padding:8px 11px;margin:2px;font-weight:700;cursor:pointer}.admin-approve{background:#e5f8ed;color:#087443}.admin-reject{background:#fff0f0;color:#b42318}.admin-reset{background:#edf3fb;color:#315477}
+#adminRows td{padding:13px 14px;border-top:1px solid #edf1f6;font-size:13px;vertical-align:middle}
+</style>
+
+<section class="legal-screen" id="legalView" aria-live="polite">
+  <div class="legal-top"><div class="legal-brand" aria-label="GOOGLE TV"><span class="g1">G</span><span class="o1">O</span><span class="o2">O</span><span class="g2">G</span><span class="l">L</span><span class="e">E</span><span class="tv">TV</span></div><button class="legal-back" type="button" id="legalBack" aria-label="Retour à l’inscription" title="Retour"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></div>
+  <article class="legal-card" id="legalContent"></article>
+</section>
+
+<div class="country-overlay" id="currencyOverlay" aria-hidden="true">
+  <section class="country-panel" role="dialog" aria-modal="true" aria-label="Sélectionnez votre devise">
+    <div class="country-panel-heading">Sélectionnez votre devise</div>
+    <div class="country-options" id="currencyOptions" role="radiogroup" aria-label="Devises"></div>
+  </section>
+</div>
+
+<div class="country-overlay" id="countryOverlay" aria-hidden="true">
+  <section class="country-panel" role="dialog" aria-modal="true" aria-label="Sélectionnez votre pays">
+    <div class="country-panel-heading">Sélectionnez votre pays</div>
+    <div class="country-options" id="countryOptions" role="radiogroup" aria-label="Pays"></div>
+  </section>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+
+const SUPABASE_URL = 'https://aebbntnzwlugwzoplerh.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_I-TkqkBhyWYNNV6_XTu0dQ_E4XiYqaE';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const signupCountries = [
+['🇿🇦','Afrique du Sud'],['🇩🇿','Algérie'],['🇦🇴','Angola'],['🇧🇯','Bénin'],['🇧🇼','Botswana'],['🇧🇫','Burkina Faso'],['🇧🇮','Burundi'],['🇨🇲','Cameroun'],['🇨🇻','Cap-Vert'],['🇨🇫','Centrafrique'],['🇰🇲','Comores'],['🇨🇬','Congo'],['🇨🇮','Côte d’Ivoire'],['🇩🇯','Djibouti'],['🇪🇬','Égypte'],['🇪🇷','Érythrée'],['🇸🇿','Eswatini'],['🇪🇹','Éthiopie'],['🇬🇦','Gabon'],['🇬🇲','Gambie'],['🇬🇭','Ghana'],['🇬🇳','Guinée'],['🇬🇶','Guinée équatoriale'],['🇬🇼','Guinée-Bissau'],['🇰🇪','Kenya'],['🇱🇸','Lesotho'],['🇱🇷','Liberia'],['🇱🇾','Libye'],['🇲🇬','Madagascar'],['🇲🇼','Malawi'],['🇲🇱','Mali'],['🇲🇦','Maroc'],['🇲🇺','Maurice'],['🇲🇷','Mauritanie'],['🇲🇿','Mozambique'],['🇳🇦','Namibie'],['🇳🇪','Niger'],['🇳🇬','Nigeria'],['🇺🇬','Ouganda'],['🇨🇩','RD Congo'],['🇷🇼','Rwanda'],['🇸🇹','Sao Tomé-et-Principe'],['🇸🇳','Sénégal'],['🇸🇨','Seychelles'],['🇸🇱','Sierra Leone'],['🇸🇴','Somalie'],['🇸🇩','Soudan'],['🇸🇸','Soudan du Sud'],['🇹🇿','Tanzanie'],['🇹🇩','Tchad'],['🇹🇬','Togo'],['🇹🇳','Tunisie'],['🇿🇲','Zambie'],['🇿🇼','Zimbabwe'],['🇧🇪','Belgique'],['🇨🇦','Canada'],['🇫🇷','France'],['🇨🇭','Suisse'],['🇺🇸','États-Unis'],['🌍','Autre']
+];
+const dialByCountry = {'Afrique du Sud':'+27','Algérie':'+213','Angola':'+244','Bénin':'+229','Botswana':'+267','Burkina Faso':'+226','Burundi':'+257','Cameroun':'+237','Cap-Vert':'+238','Centrafrique':'+236','Comores':'+269','Congo':'+242','Côte d’Ivoire':'+225','Djibouti':'+253','Égypte':'+20','Érythrée':'+291','Eswatini':'+268','Éthiopie':'+251','Gabon':'+241','Gambie':'+220','Ghana':'+233','Guinée':'+224','Guinée équatoriale':'+240','Guinée-Bissau':'+245','Kenya':'+254','Lesotho':'+266','Liberia':'+231','Libye':'+218','Madagascar':'+261','Malawi':'+265','Mali':'+223','Maroc':'+212','Maurice':'+230','Mauritanie':'+222','Mozambique':'+258','Namibie':'+264','Niger':'+227','Nigeria':'+234','Ouganda':'+256','RD Congo':'+243','Rwanda':'+250','Sao Tomé-et-Principe':'+239','Sénégal':'+221','Seychelles':'+248','Sierra Leone':'+232','Somalie':'+252','Soudan':'+249','Soudan du Sud':'+211','Tanzanie':'+255','Tchad':'+235','Togo':'+228','Tunisie':'+216','Zambie':'+260','Zimbabwe':'+263','Belgique':'+32','Canada':'+1','France':'+33','Suisse':'+41','États-Unis':'+1'};
+const currencySelect=document.getElementById('currency');
+const currencyOverlay=document.getElementById('currencyOverlay');
+const currencyOptions=document.getElementById('currencyOptions');
+const currencyOpen=document.getElementById('currencyPickerOpen');
+const currencyPickerValue=document.getElementById('currencyPickerValue');
+[...currencySelect.options].filter(option=>option.value).forEach((option)=>{
+  const row=document.createElement('button'); row.type='button'; row.className='country-option'; row.setAttribute('role','radio'); row.setAttribute('aria-checked',option.selected?'true':'false');
+  const name=document.createElement('span'); name.className='country-option-name'; name.textContent=option.textContent;
+  const radio=document.createElement('span'); radio.className='country-radio'; radio.setAttribute('aria-hidden','true');
+  row.append(name,radio);
+  row.addEventListener('click',()=>{
+    currencySelect.value=option.value; currencyPickerValue.textContent=option.textContent;
+    currencyOptions.querySelectorAll('.country-option').forEach(el=>el.setAttribute('aria-checked','false'));
+    row.setAttribute('aria-checked','true'); closeCurrencyPicker();
+  });
+  currencyOptions.appendChild(row);
+});
+function openCurrencyPicker(){currencyOverlay.classList.add('open');currencyOverlay.setAttribute('aria-hidden','false');currencyOpen.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';}
+function closeCurrencyPicker(){currencyOverlay.classList.remove('open');currencyOverlay.setAttribute('aria-hidden','true');currencyOpen.setAttribute('aria-expanded','false');document.body.style.overflow='';}
+currencyOpen.addEventListener('click',openCurrencyPicker);
+currencyOverlay.addEventListener('click',e=>{if(e.target===currencyOverlay)closeCurrencyPicker();});
+
+const countryOverlay=document.getElementById('countryOverlay');
+const countryOptions=document.getElementById('countryOptions');
+const countryOpen=document.getElementById('countryPickerOpen');
+const countryHidden=document.getElementById('countryDisplay');
+const countryPickerValue=document.getElementById('countryPickerValue');
+const dialSelect=document.getElementById('dialCode');
+let selectedCountry='';
+function chooseCountry(name, flag){
+  const rows=[...countryOptions.querySelectorAll('.country-option')];
+  const row=rows.find(el=>el.dataset.country===name);
+  if(!row) return;
+  selectedCountry=name; countryHidden.value=name; countryPickerValue.textContent=flag+'  '+name;
+  rows.forEach(el=>el.setAttribute('aria-checked',el===row?'true':'false'));
+  if(dialByCountry[name]) dialSelect.value=dialByCountry[name];
+  const countryCurrency={'États-Unis':'USD','Canada':'CAD','France':'EUR','Belgique':'EUR','Suisse':'CHF','Royaume-Uni':'GBP','Bénin':'XOF','Côte d’Ivoire':'XOF','Sénégal':'XOF','Togo':'XOF','Burkina Faso':'XOF','Niger':'XOF','Mali':'XOF','Guinée-Bissau':'XOF','Cameroun':'XAF','Congo':'XAF','Gabon':'XAF','Tchad':'XAF','Centrafrique':'XAF','RD Congo':'CDF','Nigeria':'NGN','Ghana':'GHS','Maroc':'MAD','Algérie':'DZD','Tunisie':'TND','Égypte':'EGP','Kenya':'KES','Afrique du Sud':'ZAR'};
+  const preferred=countryCurrency[name];
+  if(preferred && [...currencySelect.options].some(o=>o.value===preferred)){currencySelect.value=preferred;const opt=currencySelect.selectedOptions[0];currencyPickerValue.textContent=opt.textContent;currencyOptions.querySelectorAll('.country-option').forEach(el=>el.setAttribute('aria-checked',el.textContent===opt.textContent?'true':'false'));}
+
+}
+signupCountries.forEach(([flag,name])=>{
+  const row=document.createElement('button'); row.type='button'; row.className='country-option'; row.dataset.country=name; row.setAttribute('role','radio'); row.setAttribute('aria-checked','false');
+  const flagSpan=document.createElement('span'); flagSpan.className='country-flag'; flagSpan.textContent=flag;
+  const nameSpan=document.createElement('span'); nameSpan.className='country-option-name'; nameSpan.textContent=name;
+  const radio=document.createElement('span'); radio.className='country-radio'; radio.setAttribute('aria-hidden','true');
+  row.append(flagSpan,nameSpan,radio);
+  row.addEventListener('click',()=>{
+    chooseCountry(name,flag);
+    closeCountryPicker();
+  });
+  countryOptions.appendChild(row);
+});
+chooseCountry('Côte d’Ivoire','🇨🇮');
+(async function detectCountry(){
+  const isoToName={'BJ':'Bénin','CI':'Côte d’Ivoire','TG':'Togo','GH':'Ghana','NG':'Nigeria','SN':'Sénégal','BF':'Burkina Faso','NE':'Niger','ML':'Mali','FR':'France','BE':'Belgique','CA':'Canada','CH':'Suisse','ZA':'Afrique du Sud','CM':'Cameroun','CD':'RD Congo','CG':'Congo','GA':'Gabon','KE':'Kenya','MA':'Maroc','DZ':'Algérie','TN':'Tunisie','EG':'Égypte','GN':'Guinée','GM':'Gambie','LR':'Liberia','SL':'Sierra Leone','RW':'Rwanda','UG':'Ouganda','TZ':'Tanzanie','ZM':'Zambie','ZW':'Zimbabwe','AO':'Angola','MZ':'Mozambique','NA':'Namibie','BW':'Botswana','MG':'Madagascar','MU':'Maurice','MR':'Mauritanie','LY':'Libye','ET':'Éthiopie','ER':'Érythrée','SO':'Somalie','SD':'Soudan','SS':'Soudan du Sud','TD':'Tchad','DJ':'Djibouti','BI':'Burundi','KM':'Comores','CV':'Cap-Vert','ST':'Sao Tomé-et-Principe','SC':'Seychelles','LS':'Lesotho','MW':'Malawi','SZ':'Eswatini','CF':'Centrafrique','GQ':'Guinée équatoriale','GW':'Guinée-Bissau'};
+  try{
+    const response=await fetch('https://ipapi.co/json/',{headers:{'Accept':'application/json'}});
+    if(!response.ok) return;
+    const data=await response.json();
+    const name=isoToName[data.country_code];
+    if(name){const entry=signupCountries.find(item=>item[1]===name);if(entry)chooseCountry(name,entry[0]);}
+  }catch(error){/* Le choix par défaut reste la Côte d’Ivoire. */}
+})();
+function openCountryPicker(){countryOverlay.classList.add('open');countryOverlay.setAttribute('aria-hidden','false');countryOpen.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';}
+function closeCountryPicker(){countryOverlay.classList.remove('open');countryOverlay.setAttribute('aria-hidden','true');countryOpen.setAttribute('aria-expanded','false');document.body.style.overflow='';}
+countryOpen.addEventListener('click',openCountryPicker);
+countryOverlay.addEventListener('click',e=>{if(e.target===countryOverlay)closeCountryPicker();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCountryPicker();closeCurrencyPicker();}});
+
+document.getElementById('togglePassword').addEventListener('click', function(){
+  const p=document.getElementById('password');
+  p.type=p.type==='password'?'text':'password';
+  this.innerHTML=p.type==='password'?`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>`:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 3 18 18M10.6 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a16 16 0 0 1-3 3.8M6.2 6.2C3.5 8 2 12 2 12s3.5 7 10 7c1.4 0 2.7-.3 3.8-.8"/></svg>`;
+});
+const signupNotice=document.getElementById('notice');
+function showSignupMessage(message, isError=false){
+  signupNotice.textContent=message;
+  signupNotice.style.display='block';
+  signupNotice.style.background=isError?'#fff0f0':'#eef8ff';
+  signupNotice.style.color=isError?'#a32020':'#075a9c';
+  signupNotice.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function showLoginMessage(message, isError=false){
+  const box=document.getElementById('loginNotice');
+  box.textContent=message; box.style.display='block';
+  box.style.color=isError?'#a32020':'#075a9c';
+}
+
+const signupView=document.getElementById('signupView');
+const loginView=document.getElementById('loginView');
+const pendingView=document.getElementById('pendingView');
+const adminView=document.getElementById('adminView');
+let pendingAccount={email:'',country:'',currency:'XOF'};
+let adminFilter='pending';
+const currencySymbols={XOF:'FCFA',XAF:'FCFA',USD:'$',EUR:'€',CAD:'$ CA',CHF:'CHF',GBP:'£',NGN:'₦',GHS:'GH₵',MAD:'MAD',DZD:'DZD',TND:'TND',LYD:'LYD',EGP:'EGP',GNF:'GNF',CDF:'CDF',RWF:'RWF',BIF:'BIF',KMF:'KMF',DJF:'DJF',MGA:'MGA',MRU:'MRU',KES:'KES',UGX:'UGX',TZS:'TZS',ETB:'ETB',ERN:'ERN',AOA:'AOA',CVE:'CVE',STN:'STN',GMD:'GMD',LRD:'LRD',SLE:'SLE',MUR:'MUR',SCR:'SCR',MZN:'MZN',ZAR:'ZAR',NAD:'NAD',BWP:'BWP',LSL:'LSL',SZL:'SZL',ZMW:'ZMW',MWK:'MWK'};
+async function formatActivationAmount(currency){
+ if(currency==='XOF'||currency==='XAF') return '10 000 FCFA';
+ try{const response=await fetch('https://open.er-api.com/v6/latest/XOF');if(!response.ok)throw new Error();const data=await response.json();const rate=data.rates&&data.rates[currency];if(!rate||!Number.isFinite(rate))throw new Error();return new Intl.NumberFormat('fr-FR',{maximumFractionDigits:2}).format(10000*rate)+' '+(currencySymbols[currency]||currency)}
+ catch(e){return '10 000 FCFA (équivalent en '+currency+' indisponible pour le moment)'}
+}
+function showOnly(view){signupView.hidden=true;loginView.hidden=true;pendingView.hidden=true;adminView.hidden=true;document.getElementById('legalView').classList.remove('active');view.hidden=false;window.scrollTo(0,0)}
+function showSignupMessage(message,isError){const box=document.getElementById('notice');box.textContent=message;box.style.display='block';box.style.background=isError?'#fff0f0':'#eef8ff';box.style.color=isError?'#a32020':'#075a9c';box.scrollIntoView({behavior:'smooth',block:'center'});}
+function showLoginMessage(message,isError){const box=document.getElementById('loginNotice');box.textContent=message;box.style.display='block';box.style.color=isError?'#a32020':'#075a9c';}
+async function getMyProfile(){const {data:{user},error:userError}=await supabase.auth.getUser();if(userError||!user)throw new Error('Votre session a expiré. Connectez-vous à nouveau.');const {data:profile,error}=await supabase.from('profiles').select('id,full_name,email,country,whatsapp,currency,referral_code,reference,status,role,created_at').eq('id',user.id).single();if(error)throw new Error('Profil introuvable ou inaccessible. Vérifiez le déclencheur et les règles RLS de Supabase.');return {user,profile};}
+async function showPendingAccount(info){pendingAccount={...pendingAccount,...info};showOnly(pendingView);document.getElementById('pendingEmail').textContent=pendingAccount.email||'—';document.getElementById('pendingCountry').textContent=pendingAccount.country||'—';document.getElementById('pendingAmount').textContent=await formatActivationAmount(pendingAccount.currency||'XOF');const approved=info.status==='approved',rejected=info.status==='rejected';pendingView.classList.toggle('is-approved',approved);document.getElementById('pendingTitle').textContent=approved?'Votre compte est confirmé':rejected?'Demande refusée':'Compte en attente';document.getElementById('pendingIcon').textContent=approved?'✓':rejected?'!':'◷';document.getElementById('pendingDescription').textContent=approved?'Votre compte a été confirmé. Votre inscription est maintenant validée.':rejected?'Votre demande de création de compte n’a pas été acceptée. Veuillez contacter l’administration.':'Votre demande de création de compte a bien été enregistrée. Elle sera examinée par notre équipe.';document.getElementById('pendingStatusText').textContent=approved?'Compte confirmé':rejected?'Demande refusée':'Validation en cours';document.getElementById('pendingNextStep').hidden=approved||rejected;const button=document.getElementById('checkStatusButton');button.textContent=approved?'Votre compte est confirmé':rejected?'Demande refusée':'Vérifier le statut de mon compte';button.disabled=approved||rejected;document.getElementById('pendingFeedback').textContent='';}
+async function refreshPendingStatus(){const feedback=document.getElementById('pendingFeedback'),button=document.getElementById('checkStatusButton');button.disabled=true;feedback.textContent='Vérification en cours…';try{const {profile}=await getMyProfile();pendingAccount={email:profile.email,country:profile.country,currency:profile.currency};await showPendingAccount({...pendingAccount,status:profile.status});feedback.textContent=profile.status==='approved'?'Votre compte est confirmé.':profile.status==='rejected'?'Votre demande a été refusée.':'Votre compte est toujours en attente de validation.'}catch(error){feedback.textContent=error.message||'Impossible de vérifier le statut.';button.disabled=false}}
+document.getElementById('checkStatusButton').addEventListener('click',refreshPendingStatus);
+document.getElementById('signupForm').addEventListener('submit',async function(e){e.preventDefault();if(!this.reportValidity())return;if(!currencySelect.value){openCurrencyPicker();return}const submitButton=this.querySelector('button[type="submit"]');submitButton.disabled=true;submitButton.textContent='Création du compte…';signupNotice.style.display='none';const fullName=document.getElementById('fullname').value.trim(),email=document.getElementById('email').value.trim().toLowerCase(),password=document.getElementById('password').value,country=document.getElementById('countryDisplay').value,dialCode=document.getElementById('dialCode').value,phone=document.getElementById('phone').value.trim(),currency=currencySelect.value,referralCode=document.getElementById('referral').value.trim();try{const {data,error}=await supabase.auth.signUp({email,password,options:{data:{full_name:fullName,country,whatsapp:dialCode+' '+phone,currency,referral_code:referralCode}}});if(error)throw error;if(!data.user)throw new Error('Supabase n’a pas retourné le compte créé.');if(!data.session){showSignupMessage('Inscription créée. Consultez votre boîte Gmail pour confirmer votre adresse, puis connectez-vous.');this.reset();document.getElementById('referral').value='906794';return}const {profile}=await getMyProfile();pendingAccount={email:profile.email,country:profile.country,currency:profile.currency};this.reset();document.getElementById('referral').value='906794';await showPendingAccount({...pendingAccount,status:profile.status});}catch(error){showSignupMessage(error.message||'Impossible de créer le compte.',true)}finally{submitButton.disabled=false;submitButton.textContent='Créer mon compte'}});
+async function loadAdminRows(){const feedback=document.getElementById('adminFeedback'),tbody=document.getElementById('adminRows');feedback.textContent='Chargement des demandes…';tbody.innerHTML='<tr><td colspan="7" style="padding:20px">Chargement…</td></tr>';try{const {profile}=await getMyProfile();if(profile.role!=='admin')throw new Error('Accès refusé : espace réservé à l’administrateur.');let query=supabase.from('profiles').select('id,full_name,email,country,whatsapp,currency,referral_code,status,created_at').order('created_at',{ascending:false});if(adminFilter!=='all')query=query.eq('status',adminFilter);const {data,error}=await query;if(error)throw error;tbody.innerHTML='';if(!data.length){tbody.innerHTML='<tr><td colspan="7" style="padding:20px">Aucune demande dans cette catégorie.</td></tr>';}for(const row of data){const tr=document.createElement('tr');const cells=[(row.full_name||'—')+'\n'+(row.email||''),row.country||'—',row.whatsapp||'—',row.currency||'—',row.referral_code||'—',row.status||'—'];cells.forEach((value)=>{const td=document.createElement('td');td.textContent=value;tr.appendChild(td)});const actions=document.createElement('td');if(row.status!=='approved'){const b=document.createElement('button');b.className='admin-action admin-approve';b.textContent='Accepter';b.onclick=()=>changeStatus(row.id,'approved');actions.appendChild(b)}if(row.status!=='rejected'){const b=document.createElement('button');b.className='admin-action admin-reject';b.textContent='Refuser';b.onclick=()=>changeStatus(row.id,'rejected');actions.appendChild(b)}if(row.status!=='pending'){const b=document.createElement('button');b.className='admin-action admin-reset';b.textContent='En attente';b.onclick=()=>changeStatus(row.id,'pending');actions.appendChild(b)}tr.appendChild(actions);tbody.appendChild(tr)}feedback.textContent=data.length+' demande(s) affichée(s).';}catch(error){tbody.innerHTML='<tr><td colspan="7" style="padding:20px;color:#b42318">'+(error.message||'Erreur de chargement')+'</td></tr>';feedback.textContent='';if(error.message.includes('Accès refusé')){await supabase.auth.signOut();showOnly(signupView);}}}
+async function changeStatus(id,status){const feedback=document.getElementById('adminFeedback');feedback.textContent='Mise à jour…';try{const {error}=await supabase.rpc('admin_set_profile_status',{target_user_id:id,new_status:status});if(error)throw error;feedback.textContent='Statut mis à jour.';await loadAdminRows()}catch(error){feedback.textContent='Échec de la mise à jour : '+(error.message||'erreur inconnue')+'. Vérifiez que la fonction SQL admin_set_profile_status est installée.'}}
+document.querySelectorAll('.admin-filter').forEach(button=>button.addEventListener('click',()=>{adminFilter=button.dataset.filter;document.querySelectorAll('.admin-filter').forEach(b=>b.classList.toggle('active',b===button));loadAdminRows()}));
+document.getElementById('adminLogout').addEventListener('click',async()=>{await supabase.auth.signOut();showOnly(signupView);});
+async function routeFromSession(){if(location.hash==='#admin'){try{const {profile}=await getMyProfile();if(profile.role!=='admin')throw new Error('Accès interdit.');showOnly(adminView);document.querySelector('.admin-filter[data-filter="pending"]').classList.add('active');await loadAdminRows()}catch(e){showOnly(signupView);showSignupMessage('Accès privé : authentifiez-vous avec le compte administrateur. Les autres comptes ne peuvent pas consulter cet espace.',true)}return;}const {data:{session}}=await supabase.auth.getSession();if(session){try{const {profile}=await getMyProfile();if(profile.role==='admin'){history.replaceState(null,'',location.pathname+location.search+'#admin');showOnly(adminView);document.querySelector('.admin-filter[data-filter="pending"]').classList.add('active');await loadAdminRows()}else{pendingAccount={email:profile.email,country:profile.country,currency:profile.currency};await showPendingAccount({...pendingAccount,status:profile.status})}}catch(e){showOnly(signupView)}}}
+const legalView=document.getElementById('legalView');
+const legalContent=document.getElementById('legalContent');
+const legalPages={
+conditions:`<h1>Conditions d’utilisation</h1><p class="legal-date">Version du 27 novembre 2026</p>
+<p>Bienvenue sur GOOGLE TV. Les présentes conditions expliquent les règles générales applicables à l’accès et à l’utilisation de la plateforme, de ses pages, fonctionnalités et services proposés.</p>
+<h2>1. Objet de la plateforme</h2><p>GOOGLE TV est présentée comme une plateforme permettant notamment de consulter des vidéos et d’utiliser des fonctionnalités liées aux vues, aux mentions « J’aime », aux favoris et, le cas échéant, aux gains affichés dans un compte. Les fonctionnalités effectivement disponibles sont celles accessibles dans la version active du service.</p>
+<h2>2. Acceptation et évolution</h2><p>En créant un compte ou en utilisant la plateforme, l’utilisateur reconnaît avoir pris connaissance des présentes conditions. Si une modification importante est apportée, une version actualisée pourra être publiée sur cette page avec sa date de mise à jour. L’utilisateur qui n’accepte pas les conditions doit cesser d’utiliser le service.</p>
+<h2>3. Accès et compte</h2><p>L’utilisateur doit fournir des informations exactes, à jour et lui appartenant. Il est responsable de la confidentialité de son mot de passe et des activités réalisées depuis son compte. Il doit signaler sans délai toute utilisation non autorisée de son compte. Un compte est personnel et ne doit pas être vendu, loué ou partagé de manière abusive.</p>
+<h2>4. Utilisation loyale</h2><p>L’utilisateur s’engage à respecter les lois applicables, les droits des tiers et les règles de la plateforme. Il lui est notamment interdit de tenter de perturber le service, contourner ses mécanismes de sécurité, créer des comptes frauduleux, manipuler artificiellement les vues ou interactions, diffuser des contenus illicites ou utiliser des moyens automatisés non autorisés.</p>
+<h2>5. Disponibilité et évolution du service</h2><p>La plateforme peut être modifiée, suspendue ou interrompue temporairement pour maintenance, sécurité ou raisons techniques. Nous nous efforcerons de limiter les interruptions, sans garantir une disponibilité permanente ni un fonctionnement sans erreur.</p>
+<h2>6. Responsabilité de l’utilisateur</h2><p>L’utilisateur reste responsable des informations qu’il communique, des contenus qu’il publie ou transmet et de l’usage qu’il fait de son compte. Il doit vérifier que son utilisation de la plateforme est conforme à la réglementation applicable dans son pays.</p>
+<h2>7. Limitation de responsabilité</h2><p>Dans les limites autorisées par la loi, la plateforme ne garantit pas que le service répondra à tous les besoins de l’utilisateur, ni qu’il sera exempt d’interruptions, de pertes de données ou d’erreurs. Aucune disposition ne limite les droits ou responsabilités qui ne peuvent légalement être exclus.</p>
+<h2>8. Suspension ou clôture</h2><p>En cas de fraude présumée, de violation des présentes conditions, de risque pour la sécurité ou d’obligation légale, l’accès à certaines fonctionnalités ou au compte peut être limité ou suspendu. Lorsque cela est raisonnablement possible, l’utilisateur sera informé du motif et des démarches de contestation disponibles.</p>
+<h2>9. Propriété intellectuelle</h2><p>Les éléments graphiques, textes, marques, logiciels et autres contenus de la plateforme sont protégés par les règles applicables. Sauf autorisation, l’utilisateur ne peut pas les copier, modifier, distribuer ou exploiter commercialement. Les contenus appartenant à des tiers restent la propriété de leurs titulaires.</p>
+<h2>10. Droit applicable et contact</h2><p>Les présentes conditions sont soumises aux règles impératives applicables dans le pays de résidence de l’utilisateur et, pour les questions non régies par celles-ci, au droit qui sera précisé par l’exploitant de la plateforme. Pour toute question ou réclamation, l’utilisateur peut contacter l’équipe de GOOGLE TV par le canal officiel de support communiqué sur la plateforme.</p>`,
+termes:`<h1>Termes d’utilisation</h1><p class="legal-date">Version du 27 novembre 2026</p>
+<p>Les présents termes précisent les modalités pratiques d’utilisation du compte GOOGLE TV et les engagements de chaque utilisateur.</p>
+<h2>1. Création du compte</h2><p>Pour s’inscrire, l’utilisateur doit remplir les champs demandés dans le formulaire, notamment son nom, son adresse électronique, son pays et son numéro WhatsApp lorsque ces champs sont requis. L’inscription ne doit être effectuée qu’avec des coordonnées exactes et accessibles à l’utilisateur.</p>
+<h2>2. Sécurité des identifiants</h2><p>L’utilisateur doit choisir un mot de passe suffisamment robuste, ne pas le communiquer à une autre personne et le renouveler s’il pense qu’il a été compromis. L’équipe de la plateforme ne demandera jamais à l’utilisateur de lui communiquer son mot de passe en clair.</p>
+<h2>3. Profil et informations personnelles</h2><p>L’utilisateur doit maintenir ses informations à jour et ne pas usurper l’identité d’une autre personne. Toute demande de correction ou de fermeture du compte pourra être adressée au support officiel dès que ses coordonnées seront publiées.</p>
+<h2>4. Vidéos et interactions</h2><p>Les fonctions de consultation de vidéos, de vues, de mentions « J’aime » et de favoris doivent être utilisées de façon authentique. Les vues, clics, réactions ou autres interactions générés artificiellement, achetés, échangés ou manipulés peuvent être exclus des statistiques et entraîner une restriction du compte.</p>
+<h2>5. Gains, soldes et retraits</h2><p>La présence d’une rubrique « gains » ou l’affichage d’un montant ne constitue pas, à lui seul, une promesse de revenu. Les éventuelles récompenses, conditions d’éligibilité, seuils, délais, frais, moyens de paiement et modalités de retrait doivent être clairement présentés dans les règles spécifiques du programme avant que l’utilisateur ne participe. Aucun gain n’est garanti et aucun paiement ne doit être considéré comme acquis tant qu’il n’a pas été confirmé par la plateforme.</p>
+<h2>6. Parrainage</h2><p>Un code de parrainage peut être proposé lors de l’inscription. Son utilisation est facultative, sauf indication contraire clairement affichée. Les éventuels bonus sont soumis aux règles du programme de parrainage qui devront préciser les conditions de validation, les limites et les cas d’annulation. La simple saisie d’un code ne garantit pas l’attribution d’un bonus.</p>
+<h2>7. Devise et affichage des montants</h2><p>La devise sélectionnée sert à afficher les montants lorsque cette fonction est disponible. Les conversions ou taux indicatifs peuvent varier et ne constituent pas une cotation financière garantie. Les montants définitifs sont ceux confirmés au moment de l’opération concernée.</p>
+<h2>8. Comportements interdits</h2><ul><li>Créer plusieurs comptes dans le but de contourner une règle ou obtenir indûment un avantage ;</li><li>utiliser des robots, scripts ou systèmes de clics automatiques non autorisés ;</li><li>fournir de fausses informations ou usurper l’identité d’un tiers ;</li><li>chercher à accéder aux données, comptes ou systèmes d’un autre utilisateur ;</li><li>publier ou transmettre des contenus illégaux, menaçants, frauduleux ou portant atteinte aux droits d’autrui.</li></ul>
+<h2>9. Contrôles et mesures</h2><p>En présence d’indices raisonnables de fraude ou d’un manquement aux présents termes, la plateforme peut vérifier les activités concernées, demander des informations complémentaires proportionnées et appliquer des mesures temporaires ou définitives conformément à la loi.</p>
+<h2>10. Acceptation</h2><p>En cochant la case d’acceptation lors de l’inscription, l’utilisateur confirme avoir lu les conditions, les présents termes et la politique de confidentialité. Il peut revenir à tout moment à ces documents depuis les liens affichés sur le formulaire.</p>`,
+confidentialite:`<h1>Politique de confidentialité</h1><p class="legal-date">Version du 27 novembre 2026</p>
+<p>La présente politique explique quelles informations peuvent être demandées lors de l’utilisation de GOOGLE TV, pourquoi elles sont utilisées et quels choix l’utilisateur peut exercer. Elle doit être lue avec les conditions et les termes d’utilisation.</p>
+<h2>1. Responsable du traitement</h2><p>Le responsable du traitement est l’entité ou la personne qui exploite effectivement GOOGLE TV. Son identité légale, son adresse et son pays d’établissement doivent être indiqués ici par l’exploitant avant la publication définitive de cette politique.</p>
+<h2>2. Informations susceptibles d’être collectées</h2><ul><li>Informations de compte : nom complet, adresse électronique et mot de passe (qui doit être stocké sous une forme sécurisée et jamais en clair) ;</li><li>coordonnées fournies : pays, numéro WhatsApp et indicatif téléphonique ;</li><li>préférences : devise choisie et code de parrainage éventuellement saisi ;</li><li>données d’utilisation : interactions avec les vidéos, vues, favoris, journaux techniques et informations nécessaires à la sécurité, si ces fonctions sont effectivement activées ;</li><li>données techniques : type de navigateur ou d’appareil, adresse IP et données de diagnostic, dans la mesure où elles sont recueillies par les outils utilisés.</li></ul>
+<h2>3. Finalités</h2><p>Ces informations peuvent être utilisées pour créer et gérer le compte, permettre l’accès aux fonctionnalités, contacter l’utilisateur au sujet de son compte, assurer la sécurité, prévenir la fraude, traiter les demandes d’assistance, mesurer le fonctionnement du service et respecter les obligations légales.</p>
+<h2>4. Base et nécessité du traitement</h2><p>Selon la situation et la loi applicable, le traitement peut être nécessaire à l’exécution du service demandé, au respect d’une obligation légale, à la protection de la sécurité de la plateforme ou reposer sur le consentement de l’utilisateur. Lorsqu’un consentement est requis, il doit être demandé séparément et pouvoir être retiré.</p>
+<h2>5. Partage des informations</h2><p>Les données ne doivent être accessibles qu’aux personnes qui en ont besoin pour exploiter, sécuriser ou assister le service. Elles peuvent être transmises à des prestataires techniques agissant pour le compte de l’exploitant, ou aux autorités lorsque la loi l’exige. Elles ne doivent pas être vendues à des tiers à des fins commerciales. Tout prestataire ayant accès aux données doit être soumis à des obligations appropriées de confidentialité et de sécurité.</p>
+<h2>6. Conservation</h2><p>Les informations sont conservées uniquement pendant la durée nécessaire aux finalités annoncées, puis supprimées ou anonymisées, sous réserve des obligations légales et de la nécessité de traiter les litiges ou incidents de sécurité. Les durées précises de conservation devront être définies par l’exploitant selon les données et les obligations applicables.</p>
+<h2>7. Sécurité</h2><p>L’exploitant doit mettre en place des mesures techniques et organisationnelles raisonnables pour protéger les informations contre la perte, l’accès non autorisé, la divulgation ou l’altération. Aucun système de transmission ou de stockage ne pouvant être garanti totalement sûr, l’utilisateur doit également protéger ses identifiants.</p>
+<h2>8. Cookies et technologies similaires</h2><p>Le site peut utiliser des cookies ou des technologies similaires nécessaires à son fonctionnement, à la mémorisation des préférences ou à la mesure d’audience si ces outils sont activés. Les cookies non essentiels ne doivent être déposés qu’après recueil du consentement lorsque la réglementation l’exige. Les paramètres du navigateur permettent également de gérer certains cookies.</p>
+<h2>9. Droits des utilisateurs</h2><p>Selon la législation applicable, l’utilisateur peut demander l’accès à ses données, leur rectification, leur effacement, la limitation de certains traitements, s’opposer à certains usages ou retirer un consentement. Il peut également introduire une réclamation auprès de l’autorité de protection des données compétente. Les demandes devront être adressées au contact officiel de confidentialité publié par l’exploitant.</p>
+<h2>10. Transferts internationaux</h2><p>Si les données sont hébergées ou traitées dans un autre pays, l’exploitant doit s’assurer que les garanties exigées par la législation applicable sont en place et informer les utilisateurs lorsque cela est requis.</p>
+<h2>11. Données des mineurs</h2><p>La plateforme n’est pas destinée aux personnes qui n’ont pas l’âge légal requis pour consentir seules au traitement de leurs données dans leur pays. Lorsqu’un consentement parental est exigé, il doit être obtenu avant la collecte des données concernées.</p>
+<h2>12. Modifications et contact</h2><p>Cette politique peut être mise à jour pour refléter l’évolution du service ou de la réglementation. La date de la dernière version figure en haut de la page. Pour toute question ou demande relative aux données personnelles, utilisez le contact officiel de confidentialité communiqué par l’exploitant.</p>`
+};
+function openLegalPage(key){
+  if(!legalPages[key]) return;
+  signupView.hidden=true; loginView.hidden=true; legalView.classList.add('active');
+  legalContent.innerHTML=legalPages[key]; window.location.hash=key; window.scrollTo(0,0);
+}
+function closeLegalPage(){legalView.classList.remove('active');signupView.hidden=false;loginView.hidden=true;history.replaceState(null,'',location.pathname+location.search);window.scrollTo(0,0);}
+document.querySelectorAll('[data-legal]').forEach(link=>link.addEventListener('click',e=>{e.preventDefault();openLegalPage(link.dataset.legal);}));
+document.getElementById('legalBack').addEventListener('click',closeLegalPage);
+routeFromSession();
+window.addEventListener('hashchange',routeFromSession);
+
+document.getElementById('openLogin').addEventListener('click',function(e){e.preventDefault();signupView.hidden=true;loginView.hidden=false;window.scrollTo(0,0);});
+document.getElementById('backToSignup').addEventListener('click',function(e){e.preventDefault();loginView.hidden=true;signupView.hidden=false;window.scrollTo(0,0);});
+document.getElementById('loginForm').addEventListener('submit',async function(e){e.preventDefault();if(!this.reportValidity())return;const button=this.querySelector('button[type="submit"]');button.disabled=true;button.textContent='Connexion…';try{const email=document.getElementById('loginEmail').value.trim().toLowerCase(),password=document.getElementById('loginPassword').value;const {error}=await supabase.auth.signInWithPassword({email,password});if(error)throw error;const {profile}=await getMyProfile();if(profile.role==='admin'){history.replaceState(null,'',location.pathname+location.search+'#admin');showOnly(adminView);document.querySelector('.admin-filter[data-filter="pending"]').classList.add('active');await loadAdminRows()}else{pendingAccount={email:profile.email,country:profile.country,currency:profile.currency};await showPendingAccount({...pendingAccount,status:profile.status})}}catch(error){showLoginMessage(error.message||'Connexion impossible.',true)}finally{button.disabled=false;button.textContent='Se connecter'}});
+</script>
+</body>
+</html>
